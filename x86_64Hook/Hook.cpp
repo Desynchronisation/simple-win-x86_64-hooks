@@ -9,12 +9,12 @@
 Hook::Hook(void* originalFuncPtr, void* hookFuncPtr, size_t length)
 	:
 #ifdef _WIN64
-	m_jmpBytes{	0x50,												//push rax
-				0x48, 0xB8, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,	//mov  rax, [QWORD]
-				0xFF, 0xE0,											//jmp  rax
-				0x58	},											//pop  rax
+    m_jmpBytes{ 0x50,                                               //push rax
+                0x48, 0xB8, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, //mov  rax, [QWORD]
+                0xFF, 0xE0,                                         //jmp  rax
+                0x58 },                                             //pop  rax
 #else
-	m_jmpBytes{	0xE9, 0x0, 0x0, 0x0, 0x0	},						//jmp  [DWORD]
+    m_jmpBytes{ 0xE9, 0x0, 0x0, 0x0, 0x0 },                         //jmp  [DWORD]
 #endif
 	m_originalBytes(nullptr),
 	m_length(length),
